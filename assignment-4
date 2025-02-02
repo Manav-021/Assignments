@@ -1,0 +1,87 @@
+1)
+import numpy as np
+arr=np.array([1,2,3,4,5])
+print(arr)
+arr=arr+2
+print(arr)
+arr=arr*3
+print(arr)
+arr=arr//2
+print(arr)
+
+
+2)
+import numpy as np
+arr = np.array([1, 2, 3, 6, 4, 5])
+arr_rev = arr[::-1]
+print("Reversed array:", arr_rev)
+
+def most_frequent(arr):
+    unique, counts = np.unique(arr, return_counts=True)
+    max_freq = unique[np.argmax(counts)]
+    indices = np.where(arr == max_freq)[0]
+    return max_freq, indices
+
+x = np.array([1, 2, 3, 4, 5, 1, 2, 1, 1, 1])
+y = np.array([1, 1, 1, 2, 3, 4, 2, 4, 3, 3])
+
+x_freq, x_indices = most_frequent(x)
+y_freq, y_indices = most_frequent(y)
+
+print(f"Most frequent value in x: {x_freq}, Indices: {x_indices}")
+print(f"Most frequent value in y: {y_freq}, Indices: {y_indices}")
+
+
+3)
+import numpy as np
+arr = np.array([[10, 20, 30], [40, 50, 60], [70, 80, 90]])
+
+print(arr[0, 1])
+print(arr[2, 0])
+
+
+4)
+import numpy as np
+
+your_name = np.linspace(10, 100, 25)
+print("Array:", your_name)
+print("Dimensions:", your_name.ndim)
+print("Shape:", your_name.shape)
+print("Total elements:", your_name.size)
+print("Data type:", your_name.dtype)
+print("Total bytes:", your_name.nbytes)
+
+
+transposed_array = your_name.reshape((1, -1))
+print("Transpose using reshape():", transposed_array)
+
+
+transposed_array_T = your_name.T
+print("Transpose using T attribute:", transposed_array_T)
+
+5)
+import numpy as np
+
+ucs420_Manav = np.array([[10, 20, 30, 40],
+                         [50, 60, 70, 80],
+                         [90, 15, 20, 35]])
+
+mean_value = np.mean(ucs420_Manav)
+median_value = np.median(ucs420_Manav)
+max_value = np.max(ucs420_Manav)
+min_value = np.min(ucs420_Manav)
+unique_elements = np.unique(ucs420_Manav)
+
+
+print("Original 2-D Array (ucs420_Manav):")
+print(ucs420_Manav)
+print("\nMean:", mean_value)
+print("Median:", median_value)
+print("Max:", max_value)
+print("Min:", min_value)
+print("Unique Elements:", unique_elements)
+
+
+reshaped_ucs420_Manav = ucs420_Manav.reshape((4, 3))
+print("\nReshaped Array (reshaped_ucs420_Manav):")
+print(reshaped_ucs420_Manav)
