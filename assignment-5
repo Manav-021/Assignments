@@ -1,0 +1,73 @@
+QUESTION 1
+import numpy as np
+gfg=np.matrix('[4, 1, 9; 12, 3, 1; 4, 5, 6]')
+result=np.sum(gfg)
+print(result)
+result2=np.sum(gfg,axis=1)
+print(result2)
+result3=np.sum(gfg,axis=0)
+print(result3)
+
+QUESTION 2
+A)array=np.array([10,52,62,16,16,54,453])
+result4=np.sort(array)
+print(result4)
+
+result5=np.argsort(array)
+print(result5)
+
+result6=np.sort(array)[:4]
+print(result6)
+
+result7=np.sort(array)[-5:]
+print(result7)
+
+B)array1= np.array([1.0, 1.2, 2.2, 2.0, 3.0, 2.0])
+interger_elements=array1[array1==array1.astype(int)]
+print(interger_elements)
+
+float_elements = array1[array1!= array1.astype(int)]
+print(float_elements)
+
+
+QUESTION 3
+X = ord('M') + ord('S')
+sales = np.array([X, X+50, X+100, X+150, X+200])
+print("Sales Data:", sales)
+tax_rate = ((X % 5) + 5) / 100
+tax_amount = sales * tax_rate
+print("Tax Rate:", tax_rate)
+print("Tax Amount:", tax_amount)
+
+
+discounted_sales = np.where(sales < (X+100), sales * 0.95, sales * 0.90)
+print("Discounted Sales:", discounted_sales)
+
+
+weekly_sales = np.tile(discounted_sales, (3, 1))
+weeks = np.arange(3).reshape(3, 1)
+adjusted_weekly_sales = weekly_sales * (1.02 ** weeks)
+
+print("Weekly Sales After Increase:\n", adjusted_weekly_sales)
+
+
+QUESTION 4
+import matplotlib.pyplot as plt
+x = np.linspace(-10, 10, 100)
+y1=x**2
+y2=np.sin(x)
+y3=np.exp(x)
+y4=np.log(np.abs(x)+1)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y1, label=r'y = x^2', color='blue')
+plt.plot(x, y2, label=r'y = \sin(x)', color='red')
+plt.plot(x, y3, label=r'y = e^x', color='green')
+plt.plot(x, y4, label=r'y = \log(|x|+1)', color='purple')
+
+plt.xlabel("X values")
+plt.ylabel("Y values")
+plt.title("Plots of Various Functions")
+plt.legend()
+plt.grid(True)
+plt.show()
