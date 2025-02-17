@@ -1,0 +1,138 @@
+Quesion 1
+import numpy as np
+import matplotlib.pyplot as plt
+
+M = float(input("Enter a value for M: "))
+
+x = np.linspace(-10, 10, 400)
+
+y1 = M * x**2
+y2 = M * np.sin(x)
+plt.plot(x, y1, label=f'y = {M} * x^2', color='blue', linestyle='-', linewidth=2)
+plt.plot(x, y2, label=f'y = {M} * sin(x)', color='red', linestyle='--', linewidth=2)
+
+plt.title(f"Plot of y = {M} * x^2 and y = {M} * sin(x)")
+plt.grid(True)
+plt.legend()
+
+plt.show()
+
+Question 2
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    'Subject': ['Math', 'English', 'Science', 'History', 'Art'],
+    'Score': [85, 90, 78, 88, 92]
+}
+
+df = pd.DataFrame(data)
+
+plt.figure(figsize=(8, 6))
+sns.barplot(x='Subject', y='Score', data=df, palette='viridis')
+
+for i, score in enumerate(df['Score']):
+    plt.text(i, score + 1, str(score), ha='center', color='black', fontsize=12)
+
+plt.title('Subject Scores', fontsize=16)
+plt.xlabel('Subject', fontsize=12)
+plt.ylabel('Score', fontsize=12)
+plt.grid(True, axis='y', linestyle='--', alpha=0.7)
+
+plt.show()
+
+
+Question 3
+import numpy as np
+import matplotlib.pyplot as plt
+
+roll_number = 12345
+np.random.seed(roll_number)
+
+data = np.random.randn(50)
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+
+axes[0].plot(np.cumsum(data), label="Cumulative Sum", color='b', linestyle='-', linewidth=2)
+axes[0].set_title("Cumulative Sum Plot")
+axes[0].set_xlabel("Index")
+axes[0].set_ylabel("Cumulative Sum")
+axes[0].grid(True)
+axes[0].legend()
+
+noise = np.random.randn(50)
+axes[1].scatter(range(50), data + noise, label="Data with Noise", color='r')
+axes[1].set_title("Scatter Plot with Random Noise")
+axes[1].set_xlabel("Index")
+axes[1].set_ylabel("Data + Noise")
+axes[1].grid(True)
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+
+
+Question 4
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+url = 'https://raw.githubusercontent.com/AnjulaMehto/MCA/main/company_sales_data.csv'
+df = pd.read_csv(url)
+
+print(df.head())
+
+plt.figure(figsize=(10, 6))
+sns.lineplot(x='Month', y='Total Profit', data=df, marker='o', color='b', label='Total Profit')
+plt.title('Total Profit of All Months')
+plt.xlabel('Month')
+plt.ylabel('Total Profit')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.legend()
+plt.show()
+
+plt.figure(figsize=(10, 6))
+sns.lineplot(x='Month', y='Product A', data=df, label='Product A', marker='o')
+sns.lineplot(x='Month', y='Product B', data=df, label='Product B', marker='o')
+sns.lineplot(x='Month', y='Product C', data=df, label='Product C', marker='o')
+sns.lineplot(x='Month', y='Product D', data=df, label='Product D', marker='o')
+plt.title('Product Sales Data (Monthly)')
+plt.xlabel('Month')
+plt.ylabel('Sales')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.legend()
+plt.show()
+
+df.set_index('Month').plot(kind='bar', figsize=(12, 8), colormap='viridis')
+plt.title('Bar Chart for All Features/Attributes')
+plt.xlabel('Month')
+plt.ylabel('Values')
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+url ="https://raw.githubusercontent.com/AnjulaMehto/MCA/main/company_sales_data.csv"
+data = pd.read_csv(url)
+data.head()
+
+sns.lineplot(x="month_number", y="total_profit", data=data)
+plt.show()
+
+for col in data.columns[1:6]:
+  sns.lineplot(x="month_number", y=data[col],label = col, data=data)
+plt.show()
+
+for col in data.columns[1:6]:
+  sns.barplot(x="month_number", y=data[col],label = col, data=data,alpha=0.4)
+plt.show()
