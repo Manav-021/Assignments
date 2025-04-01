@@ -1,0 +1,29 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import sklearn
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42,stratify=y)
+from sklearn.linear_model import LogisticRegression
+lrc = LogisticRegression(max_iter=500,random_state=42)
+lrc.fit(X_train,y_train)
+y_pred = lrc.predict(X_test)
+from sklearn.metrics import accuracy_score
+print(accuracy_score(y_test,y_pred))
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test,y_pred)
+sns.heatmap(cm,annot=True)
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.title("Confusion Matrix")
+plt.show()
+from sklearn.metrics import classification_report
+print(classification_report(y_test,y_pred))
+probability=lrc.predict_proba(X_test)
+print(probability[:10])
+
