@@ -1,0 +1,106 @@
+import re
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, LancasterStemmer, WordNetLemmatizer
+from collections import Counter
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+"""Q1.1"""
+
+paragraph = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
+lowercase_text = paragraph.lower()
+no_punct_text = re.sub(r'[^\w\s]', '', lowercase_text)
+print(no_punct_text[:100], "...")
+
+"""Q1.2
+
+"""
+
+nltk.download('punkt_tab')
+sentences = sent_tokenize(paragraph)
+words = word_tokenize(no_punct_text)
+
+"""Q1.3
+
+"""
+
+stop_words = set(stopwords.words('english'))
+filtered_words = [word for word in words if word not in stop_words]
+
+"""Q1.4"""
+
+word_freq = Counter(filtered_words)
+for word, count in word_freq.most_common(10):
+    print(f"{word}: {count}")
+
+"""Q2.2"""
+
+from nltk.stem import PorterStemmer, LancasterStemmer, WordNetLemmatizer
+porter = PorterStemmer()
+lancaster = LancasterStemmer()
+
+"""Q2.3
+
+"""
+
+lemmatizer = WordNetLemmatizer()
+
+"""Q2.4"""
+
+for word in filtered_words[:10]:
+    porter_result = porter.stem(word)
+    lancaster_result = lancaster.stem(word)
+    lemma_result = lemmatizer.lemmatize(word)
+    print(f"{word}\t{porter_result}\t{lancaster_result}\t{lemma_result}")
+
+"""Q3.2"""
+
+long_words = re.findall(r'\b\w{6,}\b', paragraph)
+print(long_words[:15])
+numbers = re.findall(r'\d+\.?\d*', paragraph)
+print(numbers)
+cap_words = re.findall(r'\b[A-Z][a-zA-Z]*\b', paragraph)
+print(cap_words)
+
+"""Q3.3"""
+
+alpha_only = re.findall(r'\b[a-zA-Z]+\b', paragraph)
+print(alpha_only[:15])
+vowel_words = re.findall(r'\b[aeiouAEIOU][a-zA-Z]*\b', paragraph)
+print(vowel_words)
+
+"""Q4.1
+
+"""
+
+text_sample = paragraph + "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue."
+
+"""Q4.2"""
+
+def custom_tokenize(text):
+    text_temp = re.sub(r"(\w+)'(\w+)", r"\1'\2", text)
+    text_temp = re.sub(r"(\w+)-(\w+)(-(\w+))?", lambda m: m.group(0).replace("-", "HYPHEN"), text_temp)
+    text_temp = re.sub(r"(\d+)\.(\d+)", lambda m: m.group(0).replace(".", "DECIMAL"), text_temp)
+    text_temp = re.sub(r'[^\w\s]', ' ', text_temp)
+    tokens = text_temp.split()
+    tokens = [token.replace("HYPHEN", "-").replace("DECIMAL", ".") for token in tokens]
+
+    return tokens
+custom_tokens = custom_tokenize(text_sample)
+print(custom_tokens[:15])
+
+"""Q4.3"""
+
+email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+email_replaced = re.sub(email_pattern, '<EMAIL>', text_sample)
+url_pattern = r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+'
+url_replaced = re.sub(url_pattern, '<URL>', email_replaced)
+
+phone_pattern = r'(\+\d{1,3}\s\d{10}|\d{3}-\d{3}-\d{4})'
+phone_replaced = re.sub(phone_pattern, '<PHONE>', url_replaced)
+
+print(phone_replaced)
